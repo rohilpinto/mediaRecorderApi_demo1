@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-plusplus */
 import { useEffect, useState } from "react";
 import fileSaver from "file-saver";
