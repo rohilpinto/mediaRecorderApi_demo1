@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import useAudioPlayer from "./useAudioPlayer";
+import useMediaRecorderApi from "./useMediaRecorderApi";
 
 function App() {
+  const [audioUrl, isRecording, startRecording, stopRecording, handleDownload] = useMediaRecorderApi();
+
+  const [handlePlay, handleStop, isPlaying] = useAudioPlayer(audioUrl, isRecording);
+
+  console.log("audioURL", audioUrl);
+  console.log("isRecording", isRecording);
+  console.log("isPlaying", isPlaying);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h4>Recorder : Media Recorder API</h4>
+
+      <div>
+        <button onClick={isRecording ? stopRecording : startRecording}>{isRecording ? "Stop Recording" : "Start Recording"}</button>
+        <button disabled={!audioUrl} onClick={isPlaying ? handleStop : handlePlay}>
+          {isPlaying ? "pause" : "play"}
+        </button>
+        <button disabled={!audioUrl} onClick={handleDownload}>
+          Download audio
+        </button>
+      </div>
     </div>
   );
 }
