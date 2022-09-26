@@ -56,7 +56,7 @@ const useMediaRecorderApi = () => {
   };
 
   const handleDownload = () => {
-    fileSaver.saveAs(audioURL, "voice");
+    fileSaver.saveAs(audioURL, "voice.webm");
   };
 
   return [audioURL, isRecording, startRecording, stopRecording, handleDownload];
