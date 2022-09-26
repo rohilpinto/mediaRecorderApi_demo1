@@ -33,7 +33,8 @@ const useMediaRecorderApi = () => {
     // Obtain the audio when ready.
     const handleData = (e) => {
       console.log("e.data", e.data);
-      const url = URL.createObjectURL(e.data);
+      const blob = new Blob([e.data], { type: recorder.mimeType });
+      const url = URL.createObjectURL(blob);
       setAudioURL(url);
 
       // setRecordBlob({ blobURL: url, blob: e.data });
@@ -63,6 +64,20 @@ const useMediaRecorderApi = () => {
 async function requestRecorder() {
   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
-  return new MediaRecorder(stream);
+  // const options = {
+  //   mimeType: "audio/webm",
+  // };
+
+  const mime = ["audio/wav", "audio/mpeg", "audio/webm", "audio/ogg"].filter((arr) => MediaRecorder.isTypeSupported(arr))[0];
+
+  const types = ["audio/wav", "audio/mpeg", "audio/ogg", "video/webm", "audio/webm", "video/webm;codecs=vp8", "video/webm;codecs=daala", "video/webm;codecs=h264", "audio/webm;codecs=opus", "video/mpeg"];
+
+  for (const type of types) {
+    console.log(`Is ${type} supported? ${MediaRecorder.isTypeSupported(type) ? "Maybe!" : "Nope :("}`);
+  }
+
+  console.log("mime filter", mime);
+
+  return new MediaRecorder(stream, { mimeType: mime });
 }
 export default useMediaRecorderApi;
