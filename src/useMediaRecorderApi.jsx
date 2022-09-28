@@ -2,6 +2,7 @@
 /* eslint-disable no-plusplus */
 import { useEffect, useState } from "react";
 import fileSaver from "file-saver";
+import { isSafari } from "react-device-detect";
 
 // eslint-disable-next-line no-unused-vars
 const useMediaRecorderApi = () => {
@@ -56,7 +57,7 @@ const useMediaRecorderApi = () => {
   };
 
   const handleDownload = () => {
-    fileSaver.saveAs(audioURL, "voice");
+    fileSaver.saveAs(audioURL, "voice.webm");
   };
 
   return [audioURL, isRecording, startRecording, stopRecording, handleDownload];
@@ -69,10 +70,12 @@ async function requestRecorder() {
   //   mimeType: "audio/webm",
   // };
 
-  const mime = ["audio/wav", "audio/mpeg", "audio/webm", "audio/ogg"].filter((arr) => MediaRecorder.isTypeSupported(arr))[0];
+  // const mime = ["audio/wav", "audio/mpeg", "audio/webm", "audio/ogg"].filter((arr) => MediaRecorder.isTypeSupported(arr))[0];
 
-  console.log("mime filter", mime);
+  const mimeType = isSafari ? "audio/mp4" : "audio/webm";
 
-  return new MediaRecorder(stream);
+  console.log("mime filter", { mimeType });
+
+  return new MediaRecorder(stream, { mimeType });
 }
 export default useMediaRecorderApi;
