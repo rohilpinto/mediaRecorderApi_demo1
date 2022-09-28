@@ -34,7 +34,7 @@ const useMediaRecorderApi = () => {
     const handleData = (e) => {
       console.log("e.data", e.data);
       console.log("recorder.mimeType", recorder.mimeType);
-      const blob = new Blob([e.data]);
+      const blob = new Blob([e.data], { type: "audio/webm" });
       const url = URL.createObjectURL(blob);
       setAudioURL(url);
 
@@ -56,7 +56,7 @@ const useMediaRecorderApi = () => {
   };
 
   const handleDownload = () => {
-    fileSaver.saveAs(audioURL, "voice.webm");
+    fileSaver.saveAs(audioURL, "voice");
   };
 
   return [audioURL, isRecording, startRecording, stopRecording, handleDownload];

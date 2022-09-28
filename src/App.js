@@ -11,7 +11,7 @@ function App() {
   console.log("isRecording", isRecording);
   console.log("isPlaying", isPlaying);
 
-  const types = ["audio/wav", "audio/mpeg", "audio/ogg", "audio/webm"];
+  const types = ["audio/wav", "audio/mpeg", "audio/ogg", "audio/webm", "audio/mp4"];
 
   for (const type of types) {
     console.log(`Is ${type} supported? ${MediaRecorder.isTypeSupported(type) ? "Maybe!" : "Nope :("}`);
