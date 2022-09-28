@@ -34,7 +34,7 @@ const useMediaRecorderApi = () => {
     const handleData = (e) => {
       console.log("e.data", e.data);
       console.log("recorder.mimeType", recorder.mimeType);
-      const blob = new Blob([e.data], { type: recorder.mimeType });
+      const blob = new Blob([e.data]);
       const url = URL.createObjectURL(blob);
       setAudioURL(url);
 
