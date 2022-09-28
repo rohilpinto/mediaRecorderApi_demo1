@@ -73,6 +73,6 @@ async function requestRecorder() {
 
   console.log("mime filter", mime);
 
-  return new MediaRecorder(stream, { mimeType: "audio/webm" });
+  return new MediaRecorder(stream);
 }
 export default useMediaRecorderApi;
